@@ -1,14 +1,18 @@
 class Board
 
   attr_accessor :free_boxes_left
+  attr_reader :winning_combos
 
   def initialize
     @free_boxes_left = 9
+    @winning_combos = [['A1','A2','A3'], ['B1','B2','B3'], ['C1','C2','C3'], ['A1','B1','C1'], ['A2','B2','C2'], ['A3','B3','C3'], ['A1','B2','C3'], ['A3','B2','C1']]
   end
 
-  def check_box(spot)
-    puts 'box checked'
-    @free_boxes_left -= 1
+  def display(player1, player2)
+    # va afficher le board en fonction des combos arrays des players
+    puts "CECI SERA LE BOARD GAME"
+    puts "Combo array of player 1 : " + player1.combo.join(' ')
+    puts "Combo array of player 2 : " + player2.combo.join(' ')
   end
 
   def is_full?
