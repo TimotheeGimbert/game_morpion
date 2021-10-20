@@ -1,11 +1,11 @@
 class Game
 
-  attr_accessor :board, :player1, :player2
+  attr_accessor :player1, :player2, :board
 
   def initialize
-    @board = Board.new
     @player1 = create_player
     @player2 = create_player
+    @board = Board.new(@player1, @player2)
   end
 
   def create_player
@@ -22,19 +22,19 @@ class Game
     player.play(@board, box_checked)
   end
 
-  def is_a_winner?(player1, player2)
-    # @board.winning_combos.include?(player1.combo)?
+  def is_a_winner?
+    # @board.winning_combos.include?(@player1.combo)?
   end
 
   def perform
 
     while !@board.is_full? # verifies that board is NOT full
-      @board.display(@player1, @player2) # display the board on the screen
+      @board.display # display the board on the screen
       ask_to_play(@player1) # object player is asked to modify the object board
-      is_a_winner?(@player1, @player2) # check for a potential winner
-      @board.display(@player1, @player2)
+      is_a_winner? # check for a potential winner
+      @board.display
       ask_to_play(@player2)
-      is_a_winner?(@player1, @player2)
+      is_a_winner?
     end
   end
 
