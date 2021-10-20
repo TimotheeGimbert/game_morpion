@@ -6,4 +6,5 @@ require 'app/player'
 require 'app/board'
 require 'views/game'
 
+system 'clear'
 game = Game.new.perform

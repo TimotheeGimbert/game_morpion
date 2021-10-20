@@ -23,19 +23,35 @@ class Game
   end
 
   def is_a_winner?
-    # @board.winning_combos.include?(@player1.combo)?
+    @board.winning_combos.each do |winning_combo| # a winning combo looks like ['A1','A2','A3']
+      if winning_combo - @player1.combo == []
+        show_winner(player1)
+        return true
+      end
+      if winning_combo - @player2.combo == []
+        show_winner(player2)
+        return true
+      end
+    end
+    return false
+  end
+
+  def show_winner(player)
+    puts player.name + ' WINS !'
   end
 
   def perform
 
-    while !@board.is_full? # verifies that board is NOT full
-      @board.display # display the board on the screen
+    while !@board.is_full?  # verifies that board is NOT full
+      @board.display        # display the board on the screen
       ask_to_play(@player1) # object player is asked to modify the object board
-      is_a_winner? # check for a potential winner
+      if is_a_winner? then break end # check for a potential winner
       @board.display
       ask_to_play(@player2)
-      is_a_winner?
+      if is_a_winner? then break end # check for a potential winner
     end
+
+    puts "END OF THE GAME"
   end
 
 end
