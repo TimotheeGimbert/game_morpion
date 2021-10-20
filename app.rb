@@ -1,8 +1,9 @@
 require 'bundler'
 Bundler.require
 
-$:.unshift File.expand_path('./..', __FILE__)
-require '/lib/app/file01'
-require '/lib/views/file01'
+$:.unshift File.expand_path('./../lib/', __FILE__)
+require 'app/player'
+require 'app/board'
+require 'views/game'
 
-binding.pry
+game = Game.new.perform
