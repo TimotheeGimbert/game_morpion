@@ -15,7 +15,7 @@ class Game
     puts " >>> WhAt WiLl bE tHe NamE oF thE pLayEr #{player_number} ?".green
     name = gets.chomp
     while not name.class == String && name.length > 1 do
-      puts "YoU neEd To eNtEr a VaLiD nAme WiTh aT lEaSt 2 cHaracTeRs ..."
+      puts "YoU neEd To eNtEr a VaLiD nAme WiTh aT lEaSt 2 cHaracTeRs ...".red
       name = gets.chomp
     end
     return name
@@ -26,7 +26,7 @@ class Game
     puts " >>> AnD WhAt WiLl bE hiS SymBoL ?".green
     symbol = gets.chomp
     while symbol.length != 1 || symbol == ' '  do
-      puts "You neEd To eNtEr a VaLiD sYmBol oF onLY 1 cHaracTeRs ..."
+      puts "You neEd To eNtEr a VaLiD sYmBol oF onLY 1 cHaracTeRs ...".red
       symbol = gets.chomp
     end
     return symbol
@@ -51,13 +51,9 @@ class Game
 
   def get_winner
   # defines the winner and increases his score, returns the player winning
-    if @player1.is_winning?(@board) 
-      @player1.increase_score
-      return @player1
-    elsif @player2.is_winning?(@board) 
-      @player2.increase_score
-      return @player2
-    end 
+    if @player1.is_winning?(@board) then return @player1
+    elsif @player2.is_winning?(@board) then return @player2
+    else return nil end 
   end
 
   def congrats_winner(winner)
@@ -66,6 +62,7 @@ class Game
 
   def play_again?
   # asks for a new game at the end, and set the instance variable @game_is_on 
+    puts puts puts
     puts "YoU waNt tO pLaY anOtHeR GaMe ? ('y' or 'n')".yellow
     answer = gets.chomp
     if answer == 'y'
@@ -78,31 +75,31 @@ class Game
     end
   end
 
+  def game
+  # The loop of the game
+    while !@board.is_full?                      # verifies that board is NOT full
+      @display.show(@board, @player1, @player2) # displays the game on the screen
+      @player1.play(@board)                     # object player is asked to modify the object board
+      if escape_game? then break end            # escape on a potential winner
+      @display.show(@board, @player1, @player2)
+      @player2.play(@board)
+      if escape_game? then break end
+    end
+  end
+
   def perform
     @player1 = create_player(1, 'color1')
     @player2 = create_player(2, 'color2')
 
     while @game_is_on do
-
-      while !@board.is_full?                      # verifies that board is NOT full
-        @display.show(@board, @player1, @player2) # displays the game on the screen
-        @player1.play(@board)                     # object player is asked to modify the object board
-        if escape_game? then break end            # escape on a potential winner
-        @display.show(@board, @player1, @player2)
-        @player2.play(@board)
-        if escape_game? then break end
-      end
-
-      if @board.is_full? then puts "ThE bOaRd iS fulL ! NoBoDY wiNs"
-      else winner = get_winner end
-
-      @display.show(@board, @player1, @player2) 
-      congrats_winner(winner)
-      puts puts puts
+      game
+      if get_winner != nil
+        get_winner.increase_score 
+        @display.show(@board, @player1, @player2) 
+        congrats_winner(get_winner)
+      else puts "ThE bOaRd iS fulL ! NobOdY wIns" end
       play_again?
-
     end
-
     @display.good_bye
   end
 
