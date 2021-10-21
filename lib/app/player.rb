@@ -1,15 +1,15 @@
 class Player
   
-  attr_accessor :name, :symbol, :combo
+  attr_accessor :name, :symbol, :sequence
   
   def initialize(name, symbol)
     @name = name
     @symbol = symbol
-    @combo = Array.new # will hold the sequence of boxes checked by the player
+    @sequence = Array.new # will hold the sequence of boxes checked by the player
   end
 
-  def play(board, box_checked)
-    @combo << box_checked # player's combo array is completed with the new entry
+  def add_to_sequence(chosen_case)
+    @sequence << chosen_case.position
   end
 
 end

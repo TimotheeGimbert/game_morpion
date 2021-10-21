@@ -5,7 +5,7 @@ $:.unshift File.expand_path('./../lib/', __FILE__)
 require 'app/player'
 require 'app/board'
 require 'app/game'
-require 'app/checkbox.rb'
+require 'app/case'
 require 'views/show'
 
 system 'clear'

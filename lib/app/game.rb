@@ -18,43 +18,40 @@ class Game
     return new_player
   end
 
-  def ask_to_play(player)
-    puts "You can play #{player.name}"
-    box_checked = gets.chomp
-    player.play(@board, box_checked)
+  def show_winner(player)
+    puts "COnGRATS #{player.name} ! YOU WIN THE GAME !"    
   end
 
-  def is_a_winner?
-    @board.winning_combos.each do |winning_combo| # a winning combo looks like ['A1','A2','A3']
-      if winning_combo - @player1.combo == []
-        show_winner(player1)
-        return true
-      end
-      if winning_combo - @player2.combo == []
-        show_winner(player2)
-        return true
+  def make_play(player)
+    puts "You can play #{player.name}"
+    choice = gets.chomp
+    @board.play(player, choice)
+  end
+
+  def winner?
+    @board.winning_combos.each do |combo| 
+      if combo - @player1.sequence == [] then return player1
+      elsif combo - @player2.sequence == [] then return player2
+      else return nil
       end
     end
-    return false
-  end
-
-  def show_winner(player)
-    puts player.name + ' WINS !'
   end
 
   def perform
 
     while !@board.is_full?  # verifies that board is NOT full
-      @board.boxes.each {|b| puts b.position}
+      @board.cases.each {|b| puts b.position.to_s + b.content.to_s}
       @board.display        # display the board on the screen
-      ask_to_play(@player1) # object player is asked to modify the object board
-      if is_a_winner? then break end # check for a potential winner
+      make_play(@player1) # object player is asked to modify the object board
+      if winner? then break end # check for a potential winner
       @board.display
-      ask_to_play(@player2)
-      if is_a_winner? then break end # check for a potential winner
+      make_play(@player2)
+      if winner? then break end
     end
 
-    puts "END OF THE GAME"
+    show_winner(winner?)
+
+    puts "- END OF THE GAME -"
   end
 
 end
