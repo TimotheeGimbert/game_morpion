@@ -25,12 +25,6 @@ class Game
     else puts "The board is full ! NOBODY WINS" end  
   end
 
-  def make_play(player)
-    puts "You can play #{player.name}"
-    choice = gets.chomp
-    @board.play(player, choice)
-  end
-
   def escape_game?
     if @player1.is_winning?(@board) || @player2.is_winning?(@board) then return true end
     if @board.is_full? then return true end
@@ -40,10 +34,10 @@ class Game
 
     while !@board.is_full?                        # verifies that board is NOT full
       @display.show_board(@board)                 # display the board on the screen
-      make_play(@player1)                         # object player is asked to modify the object board
+      @player1.play(@board)                       # object player is asked to modify the object board
       if escape_game? then break end     # escape on a potential winner
       @display.show_board(@board)
-      make_play(@player2)
+      @player2.play(@board)
       if escape_game? then break end
     end
 
