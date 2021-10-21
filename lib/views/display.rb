@@ -26,4 +26,11 @@ class Display
     puts puts
   end
 
+  def good_bye
+    puts "CoOl To hAvE plAyEd witH YoU !".green
+    puts puts
+    puts "- END OF THE GAME -"
+    puts puts
+  end
+
 end

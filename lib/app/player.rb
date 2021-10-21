@@ -32,6 +32,11 @@ class Player
     @sequence << chosen_case.position
   end
 
+  def reset_sequence
+  # sets a new array of sequence for new game
+    @sequence = Array.new
+  end
+
   def is_winning?(board)
   # returns true if the player has a winning combo in its sequences array
     win_combo = board.winning_combos.select { |combo| (combo - @sequence).empty? }

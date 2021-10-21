@@ -1,11 +1,13 @@
 class Game
 
-  attr_accessor :player1, :player2, :board, :display
+  attr_accessor :player1, :player2, :board, :display, :game_is_on
+  
 
   def initialize
     @display = Display.new
     @display.header
     @board = Board.new
+    @game_is_on = true
   end
 
   def get_valid_name(player_number)
@@ -43,7 +45,7 @@ class Game
 
   def show_winner
   # check who wins and congrats, or inform board is full
-    if @player1.is_winning?(@board) then puts "COnGRATS #{@player1.name} ! YOU WIN THE GAME !"
+    if @player1.is_winning?(@board) then puts "COnGRATS #{@player1.name} ! YOU WIN THE GAME !".green
     elsif @player2.is_winning?(@board) then puts "COnGRATS #{@player2.name} ! YOU WIN THE GAME !" 
     else puts "The board is full ! NOBODY WINS" end  
   end
@@ -54,25 +56,42 @@ class Game
     if @board.is_full? then return true end
   end
 
+  def play_again?
+  # asks for a new game at the end, and set the instance variable @game_is_on 
+    puts "YoU waNt tO pLaY anOtHeR GaMe ? ('y' or 'n')".yellow
+    answer = gets.chomp
+    if answer == 'y'
+      @board = Board.new
+      @player1.reset_sequence
+      @player2.reset_sequence
+      @game_is_on = true
+    else
+      @game_is_on = false
+    end
+  end
+
   def perform
     @player1 = create_player(1, 'color1')
     @player2 = create_player(2, 'color2')
 
-    while !@board.is_full?              # verifies that board is NOT full
-      @display.show_board(@board)       # display the board on the screen
-      @player1.play(@board)             # object player is asked to modify the object board
-      if escape_game? then break end    # escape on a potential winner
+    while @game_is_on do
+
+      while !@board.is_full?              # verifies that board is NOT full
+        @display.show_board(@board)       # display the board on the screen
+        @player1.play(@board)             # object player is asked to modify the object board
+        if escape_game? then break end    # escape on a potential winner
+        @display.show_board(@board)
+        @player2.play(@board)
+        if escape_game? then break end
+      end
+
       @display.show_board(@board)
-      @player2.play(@board)
-      if escape_game? then break end
+      show_winner
+
+      play_again?
     end
 
-    @display.show_board(@board)
-
-    show_winner
-
-    puts puts
-    puts "- END OF THE GAME -"
+    @display.good_bye
   end
 
 end
