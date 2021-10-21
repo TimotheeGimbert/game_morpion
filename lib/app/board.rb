@@ -19,17 +19,20 @@ class Board
   end
 
   def place_symbol(player, position)
+  # selects the case chosen by player, places the symbol into the case, and fill the player's sequence
     chosen_case = @cases.select {|obj| obj.position == position}.pop
     chosen_case.content = player.symbol
     player.add_to_sequence(chosen_case)
   end
 
   def is_position_valid?(position)
+  # returns true if the position given exists in the array of valid positions
     @valid_positions.include?(position) ? true : false
   end
 
   def is_full?
-    return @cases.select {|c| c.content == '.'}.length == 0 ? true : false
+  # returns true if the board is full 
+    @cases.select {|c| c.content == '.'}.length == 0 ? true : false
   end
 
 end

@@ -9,6 +9,7 @@ class Game
   end
 
   def get_valid_name(player_number)
+  # asks for a name until valid, then returns it
     puts " >>> WhAt WiLl bE tHe NamE oF thE pLayEr #{player_number} ?".green
     name = gets.chomp
     while not name.class == String && name.length > 1 do
@@ -19,6 +20,7 @@ class Game
   end
 
   def get_valid_symbol
+  # asks for a symbol until valid, then returns it
     puts " >>> AnD WhAt WiLl bE hiS SymBoL ?".green
     symbol = gets.chomp
     while symbol.length != 1 || symbol == ' '  do
@@ -28,7 +30,8 @@ class Game
     return symbol
   end
 
-  def create_player(player_number, color) 
+  def create_player(player_number, color)
+  # asks for name and symbol to create a player, then returns the object Player
     name = get_valid_name(player_number)
     symbol = get_valid_symbol
     symbol = color == 'color1' ? symbol.yellow : symbol.cyan
@@ -39,12 +42,14 @@ class Game
   end
 
   def show_winner
+  # check who wins and congrats, or inform board is full
     if @player1.is_winning?(@board) then puts "COnGRATS #{@player1.name} ! YOU WIN THE GAME !"
     elsif @player2.is_winning?(@board) then puts "COnGRATS #{@player2.name} ! YOU WIN THE GAME !" 
     else puts "The board is full ! NOBODY WINS" end  
   end
 
   def escape_game?
+  # returns true if someone is winning or if board is full
     if @player1.is_winning?(@board) || @player2.is_winning?(@board) then return true end
     if @board.is_full? then return true end
   end
