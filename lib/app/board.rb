@@ -25,9 +25,14 @@ class Board
     player.add_to_sequence(chosen_case)
   end
 
+  def is_free_case?(pos)
+  # returns true if the case associated to the position is content free
+    @cases.select {|c| c.position == pos}.pop.content == '.' ? true : false
+  end
+
   def is_position_valid?(position)
-  # returns true if the position given exists in the array of valid positions
-    @valid_positions.include?(position) ? true : false
+  # returns true if the position exists in the array of valid positions and is free
+    @valid_positions.include?(position) && is_free_case?(position) ? true : false
   end
 
   def is_full?
