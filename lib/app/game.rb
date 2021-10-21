@@ -5,13 +5,15 @@ class Game
   def initialize
     @player1 = create_player
     @player2 = create_player
-    @board = Board.new(@player1, @player2)
+    @board = Board.new
   end
 
   def create_player
     puts "WhAt WiLl bE tHe NamE oF thE pLayEr ?"
     name = gets.chomp
-    new_player = Player.new(name)
+    puts "AnD WhAt WiLl bE hiS SymBoL ?"
+    symbol = gets.chomp
+    new_player = Player.new(name, symbol)
     puts "We Are hApPy tO wElcoMe yoU iN thE gAme #{name}"
     return new_player
   end
@@ -43,6 +45,7 @@ class Game
   def perform
 
     while !@board.is_full?  # verifies that board is NOT full
+      @board.boxes.each {|b| puts b.position}
       @board.display        # display the board on the screen
       ask_to_play(@player1) # object player is asked to modify the object board
       if is_a_winner? then break end # check for a potential winner

@@ -1,14 +1,14 @@
 class Player
   
-  attr_accessor :name, :combo
+  attr_accessor :name, :symbol, :combo
   
-  def initialize(name)
+  def initialize(name, symbol)
     @name = name
+    @symbol = symbol
     @combo = Array.new # will hold the sequence of boxes checked by the player
   end
 
   def play(board, box_checked)
-    board.free_boxes_left -= 1 # player is modifying board object attr_accessor
     @combo << box_checked # player's combo array is completed with the new entry
   end
 
