@@ -8,9 +8,17 @@ class Game
     @board = Board.new
   end
 
-  def create_player(number, color)
-    puts " >>> WhAt WiLl bE tHe NamE oF thE pLayEr #{number} ?".green
+  def get_valid_name(player_number)
+    puts " >>> WhAt WiLl bE tHe NamE oF thE pLayEr #{player_number} ?".green
     name = gets.chomp
+    while not name.class == String && name.length > 1 do
+      puts "YoU neEd To eNtEr a VaLiD nAme WiTh aT lEaSt 2 cHaracTeRs ..."
+      name = gets.chomp
+    end
+  end
+
+  def create_player(player_number, color) 
+    name = get_valid_name(player_number)
     puts " >>> AnD WhAt WiLl bE hiS SymBoL ?".green
     symbol = gets.chomp
     symbol = color == 'color1' ? symbol.yellow : symbol.cyan
