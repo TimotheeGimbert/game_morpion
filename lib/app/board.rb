@@ -24,7 +24,7 @@ class Board
   end
 
   def is_full?
-    return @cases.select {|c| c.content == ' '}.length == 0 ? true : false
+    return @cases.select {|c| c.content == '.'}.length == 0 ? true : false
   end
 
 end

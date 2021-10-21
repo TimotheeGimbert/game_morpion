@@ -9,7 +9,7 @@ class Player
   end
 
   def play(board)
-    puts "You can play #{@name}"
+    puts "  --> It's #{@name}'s turn to play !".green
     choice = gets.chomp
     board.place_symbol(self, choice)
   end
