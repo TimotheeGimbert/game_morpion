@@ -15,12 +15,22 @@ class Game
       puts "YoU neEd To eNtEr a VaLiD nAme WiTh aT lEaSt 2 cHaracTeRs ..."
       name = gets.chomp
     end
+    return name
+  end
+
+  def get_valid_symbol
+    puts " >>> AnD WhAt WiLl bE hiS SymBoL ?".green
+    symbol = gets.chomp
+    while symbol.length != 1 || symbol == ' '  do
+      puts "You neEd To eNtEr a VaLiD sYmBol oF onLY 1 cHaracTeRs ..."
+      symbol = gets.chomp
+    end
+    return symbol
   end
 
   def create_player(player_number, color) 
     name = get_valid_name(player_number)
-    puts " >>> AnD WhAt WiLl bE hiS SymBoL ?".green
-    symbol = gets.chomp
+    symbol = get_valid_symbol
     symbol = color == 'color1' ? symbol.yellow : symbol.cyan
     new_player = Player.new(name, symbol)
     puts " We Are hApPy tO wElcoMe yoU iN thE gAme #{name}, you'r symbol is #{symbol}".blue
