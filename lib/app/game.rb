@@ -1,11 +1,12 @@
 class Game
 
-  attr_accessor :player1, :player2, :board
+  attr_accessor :player1, :player2, :board, :display
 
   def initialize
     @player1 = create_player
     @player2 = create_player
     @board = Board.new
+    @display = Display.new(@board)
   end
 
   def create_player
@@ -39,12 +40,11 @@ class Game
 
   def perform
 
-    while !@board.is_full?  # verifies that board is NOT full
-      @board.cases.each {|b| puts b.position.to_s + b.content.to_s}
-      @board.display        # display the board on the screen
-      make_play(@player1) # object player is asked to modify the object board
-      if winner? then break end # check for a potential winner
-      @board.display
+    while !@board.is_full?        # verifies that board is NOT full
+      @display.show_board      # display the board on the screen
+      make_play(@player1)         # object player is asked to modify the object board
+      if winner? then break end   # escape on a potential winner
+        @display.show_board
       make_play(@player2)
       if winner? then break end
     end

@@ -23,21 +23,8 @@ class Board
     player.add_to_sequence(chosen_case)
   end
 
-  def display
-    # va afficher le board en fonction des combos arrays des players
-    puts "CECI SERA LE BOARD GAME"
-    #puts "Combo array of player 1 : " + @player1.combo.join(' ')
-    #puts "Combo array of player 2 : " + @player2.combo.join(' ')
-  end
-
   def is_full?
-    if @cases.select {|c| c.content == 'empty'}.length == 0 
-      puts "BOARD IS FULL"
-      return true 
-    else 
-      puts "BOARD is free to go"
-      return false
-    end
+    return @cases.select {|c| c.content == 'empty'}.length == 0 ? true : false
   end
 
 end

@@ -6,7 +6,7 @@ require 'app/player'
 require 'app/board'
 require 'app/game'
 require 'app/case'
-require 'views/show'
+require 'views/display'
 
 system 'clear'
 game = Game.new.perform
