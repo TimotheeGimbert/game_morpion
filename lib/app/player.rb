@@ -10,12 +10,11 @@ class Player
 
   def add_to_sequence(chosen_case)
     @sequence << chosen_case.position
-    #puts @name + " sequence is : "
-    #puts @sequence
   end
 
-  def has_combo?(combo)
-    combo - @sequence == [] ? true : false
+   def is_winning?(board)
+    win_combo = board.winning_combos.select { |combo| (combo - @sequence).empty? }
+    win_combo.empty? ? false : true
   end
 
 end

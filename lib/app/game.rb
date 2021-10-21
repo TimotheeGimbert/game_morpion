@@ -20,8 +20,8 @@ class Game
   end
 
   def show_winner
-    if is_winning?(@player1) then puts "COnGRATS #{@player1.name} ! YOU WIN THE GAME !"
-    elsif is_winning?(@player2) then puts "COnGRATS #{@player2.name} ! YOU WIN THE GAME !" 
+    if @player1.is_winning?(@board) then puts "COnGRATS #{@player1.name} ! YOU WIN THE GAME !"
+    elsif @player2.is_winning?(@board) then puts "COnGRATS #{@player2.name} ! YOU WIN THE GAME !" 
     else puts "The board is full ! NOBODY WINS" end  
   end
 
@@ -31,12 +31,8 @@ class Game
     @board.play(player, choice)
   end
 
-  def is_winning?(player)
-    @board.winning_combos.select { |combo| player.has_combo?(combo) } == [] ? false : true
-  end
-
   def escape_game?
-    if is_winning?(@player1) || is_winning?(@player2) then return true end
+    if @player1.is_winning?(@board) || @player2.is_winning?(@board) then return true end
     if @board.is_full? then return true end
   end
 
