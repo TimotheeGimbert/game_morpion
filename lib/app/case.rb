@@ -4,8 +4,7 @@ class Case
 
   def initialize(position)
     @position = position
-    @content = 'empty'
+    @content = ' '
   end
 
-  
 end
